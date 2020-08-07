@@ -21,15 +21,25 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
        http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
 
-    <dubbo:application metadata-type="remote" name="demo-provider"/>
-    <dubbo:metadata-report address="zookeeper://127.0.0.1:2181"/>
+	<dubbo:application name="demo-provider" />
 
-    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
+	<dubbo:config-center
+		address="zookeeper://192.168.21.176:2181" />
 
-    <dubbo:protocol name="dubbo"/>
+	<!-- 配置在全局中 -->
+	<!-- <dubbo:metadata-report address="redis://127.0.0.1:6700"/> -->
 
-    <bean id="demoService" class="org.apache.dubbo.demo.provider.DemoServiceImpl"/>
+	<!-- 统计功能不全,使用Sen -->
+	<!-- <dubbo:metrics port="20880" protocol="dubbo" /> <dubbo:provider filter="metrics" 
+		tag="tag2"/> -->
 
-    <dubbo:service interface="org.apache.dubbo.demo.DemoService" ref="demoService"/>
+	<dubbo:protocol name="dubbo" port="20882"
+		host="192.168.21.176" />
+
+	<bean id="demoService"
+		class="org.apache.dubbo.demo.provider.DemoServiceImpl" />
+
+	<dubbo:service
+		interface="org.apache.dubbo.demo.DemoService" ref="demoService" />
 
 </beans>

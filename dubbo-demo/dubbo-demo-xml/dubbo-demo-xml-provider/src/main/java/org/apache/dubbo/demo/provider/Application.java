@@ -16,12 +16,18 @@
  */
 package org.apache.dubbo.demo.provider;
 
+import org.apache.dubbo.config.ConfigCenterConfig;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Application {
     public static void main(String[] args) throws Exception {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/dubbo-provider.xml");
         context.start();
+        
+        // API设置
+        // ConfigCenterConfig configCenter = new ConfigCenterConfig();
+        // configCenter.setAddress("zookeeper://127.0.0.1:2181");
+
         System.in.read();
     }
 }

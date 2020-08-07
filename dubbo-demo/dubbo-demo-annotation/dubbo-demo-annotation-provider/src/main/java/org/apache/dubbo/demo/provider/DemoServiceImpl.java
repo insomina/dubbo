@@ -40,4 +40,9 @@ public class DemoServiceImpl implements DemoService {
         return null;
     }
 
+  @Override
+  public String sayHello2(String name) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }

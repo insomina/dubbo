@@ -17,21 +17,45 @@
 package org.apache.dubbo.demo.consumer;
 
 import org.apache.dubbo.demo.DemoService;
-
+import org.apache.dubbo.rpc.RpcContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import java.util.concurrent.CompletableFuture;
+import org.apache.dubbo.common.constants.CommonConstants;
+import org.apache.dubbo.config.Constants;
 
 public class Application {
-    /**
-     * In order to make sure multicast registry works, need to specify '-Djava.net.preferIPv4Stack=true' before
-     * launch the application
-     */
-    public static void main(String[] args) throws Exception {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/dubbo-consumer.xml");
-        context.start();
-        DemoService demoService = context.getBean("demoService", DemoService.class);
-        CompletableFuture<String> hello = demoService.sayHelloAsync("world");
-        System.out.println("result: " + hello.get());
+  /**
+   * In order to make sure multicast registry works, need to specify
+   * '-Djava.net.preferIPv4Stack=true' before launch the application
+   */
+  public static void main(String[] args) throws Exception {
+    ClassPathXmlApplicationContext context =
+        new ClassPathXmlApplicationContext("spring/dubbo-consumer.xml");
+
+    context.start();
+
+    //    ConfigCenterConfig configCenter = new ConfigCenterConfig();
+    //    configCenter.setAddress("zookeeper://127.0.0.1:2181");
+
+    DemoService demoService = context.getBean("demoService", DemoService.class);
+
+    while (true) {
+      RpcContext.getContext().setAttachment(CommonConstants.TAG_KEY, "tag2");
+
+      CompletableFuture<String> hello = demoService.sayHelloAsync("world");
+      System.out.println("result: " + hello.get());
+
+      RpcContext.getContext().setAttachment(CommonConstants.TAG_KEY, "tag2");
+
+      String hello2 = demoService.sayHello("world");
+      System.out.println("result: " + hello2);
+
+      RpcContext.getContext().setAttachment(CommonConstants.TAG_KEY, "tag2");
+
+      String hello3 = demoService.sayHello2("world 2");
+      System.out.println("result: " + hello3);
+
+      Thread.sleep(1000);
     }
+  }
 }

@@ -25,16 +25,21 @@ import java.util.concurrent.CompletableFuture;
 
 @Component("demoServiceComponent")
 public class DemoServiceComponent implements DemoService {
-    @Reference
-    private DemoService demoService;
+  @Reference private DemoService demoService;
 
-    @Override
-    public String sayHello(String name) {
-        return demoService.sayHello(name);
-    }
+  @Override
+  public String sayHello(String name) {
+    return demoService.sayHello(name);
+  }
 
-    @Override
-    public CompletableFuture<String> sayHelloAsync(String name) {
-        return null;
-    }
+  @Override
+  public CompletableFuture<String> sayHelloAsync(String name) {
+    return null;
+  }
+
+  @Override
+  public String sayHello2(String name) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 }

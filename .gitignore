@@ -41,3 +41,5 @@ compiler/.gradle/*
 
 # protobuf
 dubbo-serialization/dubbo-serialization-protobuf/build/*
+maven-eclipse.xml
+Maven_Ant_Builder.launch

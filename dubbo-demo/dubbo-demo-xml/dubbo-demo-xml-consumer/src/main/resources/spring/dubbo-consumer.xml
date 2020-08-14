@@ -26,9 +26,17 @@
 	<!-- <dubbo:metrics port="20770" protocol="dubbo"/> <dubbo:consumer filter="metrics" 
 		/> -->
 		
-	<dubbo:config-center
-		address="zookeeper://192.168.21.176:2181" />
-
+	<!-- <dubbo:config-center
+		address="zookeeper://192.168.21.176:2181" /> -->
+    
+    <dubbo:config-center
+        address="nacos://192.168.21.176:8848" />
+    
+<!--     <dubbo:registry address="nacos://192.168.21.176:8848" simplified="true"/>
+ -->    
+    <!-- 配置在全局中 -->
+<!--     <dubbo:metadata-report address="nacos://192.168.21.176:8848"/>
+ -->    
 	<dubbo:reference id="demoService" check="false"
 		interface="org.apache.dubbo.demo.DemoService" />
     
